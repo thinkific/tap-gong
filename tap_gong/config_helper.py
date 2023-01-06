@@ -60,10 +60,10 @@ def get_stats_dates_from_config(config):
     current_date = datetime.now().date()
     stats_from_date = start_date.date() if start_date else datetime.min.date()
     stats_to_date = end_date.date() if end_date else current_date
-    if stats_from_date >= stats_to_date:
-        stats_from_date = stats_from_date + relativedelta(days=-1)
     if stats_to_date > current_date:
         stats_to_date = current_date
+    if stats_from_date >= stats_to_date:
+        stats_from_date = stats_from_date + relativedelta(days=-1)
     return {
         "stats_from_date": stats_from_date.strftime(date_format_string),
         "stats_to_date": stats_to_date.strftime(date_format_string)
