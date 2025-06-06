@@ -136,19 +136,39 @@ class CallsStream(GongStream):
                     ),
                 ),
                 th.Property(
-                    "pointsOfInterest",
-                    th.ObjectType(
-                        th.Property(
-                            "actionItems",
-                            th.ArrayType(
-                                th.ObjectType(
-                                    th.Property("snippetStartTime", th.NumberType),
-                                    th.Property("snippetEndTime", th.NumberType),
-                                    th.Property("speakerID", th.StringType),
-                                    th.Property("snippet", th.StringType),
-                                )
+                    "outline",
+                    th.ArrayType(
+                        th.ObjectType(
+                            th.Property("section", th.StringType),
+                            th.Property("startTime", th.NumberType),
+                            th.Property("duration", th.NumberType),
+                            th.Property(
+                                "items",
+                                th.ArrayType(
+                                    th.ObjectType(
+                                        th.Property("text", th.StringType),
+                                        th.Property("startTime", th.NumberType),
+                                    )
+                                ),
                             ),
-                        ),
+                        )
+                    ),
+                ),
+                th.Property(
+                    "highlights",
+                    th.ArrayType(
+                        th.ObjectType(
+                            th.Property("title", th.StringType),
+                            th.Property(
+                                "items",
+                                th.ArrayType(
+                                    th.ObjectType(
+                                        th.Property("text", th.StringType),
+                                        th.Property("startTimes", th.ArrayType(th.NumberType)),
+                                    )
+                                ),
+                            ),
+                        )
                     ),
                 ),
             ),
@@ -250,7 +270,8 @@ class CallsStream(GongStream):
                 "exposedFields": {
                     "collaboration": {"publicComments": True},
                     "content": {
-                        "pointsOfInterest": True,
+                        "highlights": True,
+                        "outline": True,
                         "structure": True,
                         "topics": True,
                         "trackers": True,
